@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "reactstrap";
-import { deleteSingleTicket, getServiceTickets } from "../../data/serviceTicketsData";
+import { completeServiceTicket, deleteSingleTicket, getServiceTickets } from "../../data/serviceTicketsData";
 import { Link } from "react-router-dom";
 
 export default function TicketsList() {
@@ -16,7 +16,15 @@ export default function TicketsList() {
       .then(() => getServiceTickets())
       .then((tickets) => setTickets(tickets));
     };
-  }
+  };
+
+  const completeTicket = async(id) => {
+    if (window.confirm('Mark this ticket as complete?')) {
+      completeServiceTicket(id)
+      .then(() => getServiceTickets())
+      .then((tickets) => setTickets(tickets));
+    };
+  };
 
   return (
     <Table>
@@ -42,6 +50,11 @@ export default function TicketsList() {
             <td>
               <Button onClick={() => deleteTicket(t.id)}>
                 DELETE
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => completeTicket(t.id)}>
+                COMPLETE
               </Button>
             </td>
           </tr>

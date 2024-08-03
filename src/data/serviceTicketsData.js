@@ -31,8 +31,27 @@ export const getServiceTicket = (id) =>
     })
       .then((response) => response.json())
       .then((data) => resolve(data))
-      .catch(reject);
+      .catch
+      
+      (reject);
   });
+
+  export const completeServiceTicket = (id) =>
+    new Promise((resolve, reject) => {
+      fetch(`${_apiUrl}/${id}/complete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+      })
+        .then((response) => response.json())
+        .then((data) => resolve(data))
+        .catch
+        
+        (reject);
+    });
+  
 
   export const deleteSingleTicket = (id) => new Promise((resolve, reject) => {
     fetch(`${_apiUrl}/${id}`, {
